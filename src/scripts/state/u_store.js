@@ -77,23 +77,23 @@ export function u_unflat (data) {
                 const tmpArr = [];
                 if (Array.isArray(data[p])) {
                     for (let i = 0; i < data[p].length; i++) {
-                        tmpArr.push(data[i]);
-                    }
-                } else {
-                    cur = result, prop = "", last = 0;
-                    do {
-                        idx = p.indexOf(".", last);
-                        temp = p.substring(last, idx !== -1 ? idx : undefined);
-                        cur = cur[prop] || (cur[prop] = (!isNaN(parseInt(temp)) ? [] : {}));
-                        prop = temp;
-                        last = idx + 1;
-                    } while(idx >= 0);
-                    if (tmpArr.length > 0) {
-                        cur[prop] = tmpArr;
-                    } else {
-                        cur[prop] = data[p];
+                        tmpArr.push(data[data[p][i]]);
                     }
                 }
+                cur = result, prop = "", last = 0;
+                do {
+                    idx = p.indexOf(".", last);
+                    temp = p.substring(last, idx !== -1 ? idx : undefined);
+                    cur = cur[prop] || (cur[prop] = (!isNaN(parseInt(temp)) ? [] : {}));
+                    prop = temp;
+                    last = idx + 1;
+                } while(idx >= 0);
+                if (tmpArr.length > 0) {
+                    cur[prop] = tmpArr;
+                } else {
+                    cur[prop] = data[p];
+                }
+
             }
             resolve(result[""]);
         } catch (err) {
