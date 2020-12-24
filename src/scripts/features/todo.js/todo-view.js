@@ -10,6 +10,7 @@ import { buttonPrimary } from '../../elements/button/button-view';
 export function todo (state, todosPath) {
 
     return html`
+        <i>Click item to remove</i>
         ${list(state, todosPath, removeTodo)}
         <div>
             ${input(addTodo, todosPath)} |
